@@ -28,9 +28,7 @@ function ContactUs() {
           {/* Information About Us */}
           <h2 className="text-2xl font-bold text-[#151875] mb-4">Information About Us</h2>
           <p className="text-gray-600 mb-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis neque ultrices mattis
-            aliquam, malesuada diam est. Malesuada sem tristique amet erat vitae eget dolor
-            lobortis. Accumsan faucibus vitae lobortis quis bibendum quam.
+          Welcome to Zara & Rabeeka&apos;s furniture destination born from a shared passion for timeless design and exceptional quality. As siblings, we’ve combined our unique styles and vision to create a space where you can find furniture that transforms your house into a home. Every piece in our collection is carefully selected to balance functionality, comfort, and elegance, ensuring it complements your lifestyle.
           </p>
           <div className="flex gap-2 mb-8">
             <span className="w-3 h-3 rounded-full bg-[#5625DF]"></span>
@@ -41,8 +39,12 @@ function ContactUs() {
           {/* Get in Touch */}
           <h2 className="text-2xl font-bold text-[#151875] mb-4">Get in Touch</h2>
           <p className="text-gray-600 mb-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mattis neque ultrices tristique
-            amet erat vitae eget dolor los vitae lobortis quis bibendum quam.
+          We would love to hear from you! Whether you have questions, need assistance, or simply want to say hello, feel free to reach out:<br></br>
+
+            📧 Zara: zaara.khan1795.zy@gmail.com<br></br>
+            📧 Rabeeka: rabz.khan@yahoo.com<br></br>
+
+            Your feedback and inquiries mean the world to us. Let&apos;’s connect!
           </p>
           <form className="space-y-4">
             <input
@@ -80,8 +82,8 @@ function ContactUs() {
             <div className="flex items-center gap-4">
               <span className="w-3 h-3 rounded-full bg-[#5726DF]"></span>
               <div className="text-gray-600">
-                <p>Tel: 877-67-88-99</p>
-                <p>E-Mail: Happyselling@gmail.com</p>
+                <p>Tel: 34-367-7318</p>
+                <p>E-Mail: zaara.khan1795.zy@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -94,8 +96,8 @@ function ContactUs() {
             <div className="flex items-center gap-4">
               <span className="w-3 h-3 rounded-full bg-[#FFB265]"></span>
               <div className="text-gray-600">
-                <p>20 Margaret st, London</p>
-                <p>Great Britain, 3NM98-LK</p>
+                <p>Karachi, Pakistan</p>
+                <p>North Nazimabad, Block N</p>
               </div>
             </div>
             <div className="flex items-center gap-4">

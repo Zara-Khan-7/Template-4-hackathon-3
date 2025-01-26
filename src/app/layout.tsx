@@ -1,7 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import CartProvider from "./components/CartProvider";
-import store from "./store/store";
 import { Metadata } from "next";
 
 

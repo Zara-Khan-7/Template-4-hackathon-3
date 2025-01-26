@@ -20,7 +20,7 @@ const TopBar = () => {
           {/* Phone */}
           <a href="tel:1234567890" className="flex items-center gap-2 hover:text-gray-200">
             <FaPhoneAlt />
-            <span>(12345)67890</span>
+            <span>+92 334 3677318</span>
           </a>
         </div>
 

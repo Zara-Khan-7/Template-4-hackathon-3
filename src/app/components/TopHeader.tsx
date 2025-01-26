@@ -15,7 +15,7 @@ const TopHeader = () => {
           </div>
           <div className="flex space-x-2 items-center ">
             <FaPhoneAlt />
-            <span>+123 456 7890</span>
+            <span>+92 334 3677318</span>
           </div>
         </div>
 

@@ -6,10 +6,12 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import store, { RootState } from '../store/store';
 import { addToCart, removeFromCart, updateQuantity } from '../store/cartSlice';
 import { CartItem } from '../type';
+import CartProvider from '../components/CartProvider';
+
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const Cart = () => {
 
   // Calculate total price of the cart
   const calculateTotal = () => {
+    
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
@@ -54,7 +57,9 @@ const Cart = () => {
   const totalCost = calculateTotal() + shippingCost;
 
   return (
+  
     <div>
+      
       <Header />
       <ToastContainer autoClose={3000} />
 
@@ -174,7 +179,9 @@ const Cart = () => {
       </div>
       <Footer />
     </div>
-  );
+  
+    
+  )
 };
 
 export default Cart;

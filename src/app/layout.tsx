@@ -1,9 +1,9 @@
-'use client'
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import CartProvider from "./components/CartProvider";
 import store from "./store/store";
-import { Provider } from "react-redux";
+import { Metadata } from "next";
+
 
 // Load custom fonts with variable definitions for easy reference in CSS
 const geistSans = localFont({
@@ -18,27 +18,24 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// // Set up metadata for SEO and accessibility
-// export const metadata: Metadata = {
-//   title: "Hekto",
-//   description: "A modern and responsive website built with Next.js."
-// };
+// Set up metadata for SEO and accessibility
+export const metadata: Metadata = {
+  title: "Hekto",
+  description: "A modern and responsive website built with Next.js."
+};
 
-// // Set up viewport
-// const viewportMeta = "width=device-width, initial-scale=1";
+// Set up viewport
+const viewportMeta = "width=device-width, initial-scale=1";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-   
-    <Provider store={store}>
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </Provider>
-    
+    <html lang="en">
+      <body>
+        <CartProvider>{children}</CartProvider>
+      </body>
+    </html>
   );
-}
+};
+
+export default Layout;

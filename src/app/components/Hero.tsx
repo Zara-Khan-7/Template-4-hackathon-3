@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -22,14 +23,13 @@ const Hero = () => {
           </p>
           <h1 className="text-4xl font-bold text-gray-900 mt-4 leading-tight">
             New Furniture Collection <br />
-            Trends in 2020
+            Trends in 2025
           </h1>
           <p className="text-blue-700 mt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br></br> Sed
-            ullamcorper, velit at feugiat ultricies.
+          Discover our exclusive range of premium furniture designed to bring style, comfort, and functionality to your space.
           </p>
           <button className="bg-pink-600 text-white text-sm font-semibold px-6 py-3 rounded-full mt-6 hover:bg-pink-500">
-            Shop Now
+           <Link href='/products'>Shop Now</Link> 
           </button>
         </div>
 

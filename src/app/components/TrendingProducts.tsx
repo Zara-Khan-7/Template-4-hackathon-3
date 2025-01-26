@@ -1,29 +1,33 @@
 'use client';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { toast, ToastContainer } from 'react-toastify';
-import { client } from '../../sanity/lib/client';
-import 'react-toastify/dist/ReactToastify.css';
+import {client} from '../../sanity/lib/client';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'; // Icons for wishlist
+import { useRouter } from 'next/navigation';
 
 type Product = {
   _id: string;
   imageUrl: string;
   name: string;
-  code?: string;
   price: number;
-  description?: string;
-  discountPercentage?: number;
-  stockLevel?: number;
-  category?: string;
+  description: string;
+  discountPercentage: number;
+  stockLevel: number;
 };
 
 function TrendingProducts() {
   const [cart, setCart] = useState<Product[]>([]);
+  const [wishlist, setWishlist] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const [showAll, setShowAll] = useState(false); // State to toggle between showing 4 products and all
+  const [showAll, setShowAll] = useState(false);
+  const router = useRouter();
 
-  // Fetch trending products from Sanity
+const goToProductDetail = (id: string) => {
+  router.push(`/productdetail/${id}`);
+};
+
   useEffect(() => {
     const fetchProducts = async () => {
       const query = `
@@ -34,46 +38,66 @@ function TrendingProducts() {
           price,
           description,
           discountPercentage,
-          stockLevel,
-          category
+          stockLevel
         }
       `;
       try {
         const sanityProducts = await client.fetch(query);
         setProducts(sanityProducts);
       } catch (error) {
-        console.error('Failed to fetch trending products:', error);
+        console.error('Failed to fetch products:', error);
       }
     };
 
     fetchProducts();
 
-    // Load cart items from localStorage
+    // Load cart and wishlist from localStorage
     const savedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const savedWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
     setCart(savedCart);
+    setWishlist(savedWishlist);
   }, []);
 
+  // Persist cart and wishlist to localStorage
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  }, [wishlist]);
+
   const addToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const isProductInCart = prevCart.some((item) => item._id === product._id);
-
-      if (isProductInCart) {
-        toast.info(`${product.name} is already in the cart!`);
-        return prevCart;
-      }
-
-      const updatedCart = [...prevCart, product];
-      localStorage.setItem('cart', JSON.stringify(updatedCart));
-      toast.success(`${product.name} added to cart!`);
-      return updatedCart;
-    });
+    if (cart.some((item) => item._id === product._id)) {
+      toast.info(`${product.name} is already in the cart!`);
+      return;
+    }
+    setCart([...cart, product]);
+    toast.success(`${product.name} added to cart!`);
   };
 
-  const displayedProducts = showAll ? products : products.slice(10, 14); // Show only 4 products initially
+  const toggleWishlist = (product: Product) => {
+    const isInWishlist = wishlist.some((item) => item._id === product._id);
+    const toastId = `wishlist-${product._id}`;
+
+    if (isInWishlist) {
+      // Remove from wishlist
+      toast.info(`${product.name} removed from wishlist!`, { toastId });
+      setWishlist(wishlist.filter((item) => item._id !== product._id));
+    } else {
+      // Add to wishlist
+      toast.success(`${product.name} added to wishlist!`,  { toastId: `wishlist-${product._id}` } );
+      setWishlist([...wishlist, product]);
+    }
+  };
+
+  const displayedProducts = showAll ? products : products.slice(17, 21);
 
   return (
+    <>
+    {/* <Header/> */}
     <div className="w-full bg-white py-20">
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={1000} />
 
       <h2 className="text-black text-4xl text-center mb-16 font-bold">Trending Products</h2>
 
@@ -86,8 +110,22 @@ function TrendingProducts() {
                 width={200}
                 height={250}
                 alt={product.name}
-                className="object-cover w-[200px] h-[250px] transition-all duration-300 group-hover:scale-105"
+                className=" w-[200px] h-[250px] transition-all duration-300 group-hover:scale-105"
               />
+
+              <div className="absolute top-3 right-3">
+                {/* Wishlist Icon */}
+                <button
+                  onClick={() => toggleWishlist(product)}
+                  className="text-red-500 text-2xl hover:text-red-700 transition-colors"
+                >
+                  {wishlist.some((item) => item._id === product._id) ? (
+                    <AiFillHeart />
+                  ) : (
+                    <AiOutlineHeart />
+                  )}
+                </button>
+              </div>
 
               <div className="absolute bottom-0 w-full text-white text-center py-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button
@@ -98,19 +136,31 @@ function TrendingProducts() {
                 </button>
               </div>
             </div>
+                <button
+                  className="w-full py-2 text-sm bg-violet-500 rounded-none hover:bg-violet-800 transition-colors text-white"
+                  onClick={() => goToProductDetail(product._id)}
+                            
+                >
+                  View Details
+                </button>
+
+
 
             <div className="text-center mt-4">
               <h3 className="text-lg font-semibold text-red-500">{product.name}</h3>
+              <p className="mt-2 text-gray-600">{product.description}</p>
               <p className="mt-1 text-dark-blue-900">${product.price}</p>
+              {product.discountPercentage > 0 && (
+                <p className="text-green-600">Discount: {product.discountPercentage}%</p>
+              )}
             </div>
           </div>
         ))}
       </div>
-
-      {products.length > 4 && ( // Show "View All" button only if there are more than 4 products
+      {products.length > 4 && (
         <div className="text-center mt-10">
           <button
-            className="px-6 py-3 bg-blue-600 text-white text-lg rounded hover:bg-blue-800 transition-all"
+            className="px-6 py-3 bg-violet-600 text-white text-lg rounded hover:bg-violet-800 transition-all"
             onClick={() => setShowAll(!showAll)}
           >
             {showAll ? 'View Less' : 'View All'}
@@ -118,6 +168,9 @@ function TrendingProducts() {
         </div>
       )}
     </div>
+    {/* <Footer/> */}
+    </>
+    
   );
 }
 

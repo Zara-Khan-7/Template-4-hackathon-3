@@ -1,9 +1,9 @@
-
+'use client'
 import type { Metadata } from "next";
-
-
 import localFont from "next/font/local";
 import "./globals.css";
+import store from "./store/store";
+import { Provider } from "react-redux";
 
 // Load custom fonts with variable definitions for easy reference in CSS
 const geistSans = localFont({
@@ -18,17 +18,14 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-// Set up metadata for SEO and accessibility
-export const metadata: Metadata = {
-  title: "Hekto",
-  description: "A modern and responsive website built with Next.js."
-};
+// // Set up metadata for SEO and accessibility
+// export const metadata: Metadata = {
+//   title: "Hekto",
+//   description: "A modern and responsive website built with Next.js."
+// };
 
-// Set up viewport separately
-export const generateViewport = () => ({
-  width: "device-width",
-  initialScale: 1,
-});
+// // Set up viewport
+// const viewportMeta = "width=device-width, initial-scale=1";
 
 export default function RootLayout({
   children,
@@ -36,18 +33,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
-      >
-      
-        {children}
-        
-       
-      </body>
-    </html>
+   
+    <Provider store={store}>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </Provider>
+    
   );
 }

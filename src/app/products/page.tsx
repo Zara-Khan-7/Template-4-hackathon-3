@@ -21,7 +21,7 @@ import Link from 'next/link';
           <Link href={"/"}>Home</Link>
           <p className="text-sm text-black">
          <span className="text-black">.</span> Pages <span className="text-black">.</span>{" "}
-            <span className="text-[#FB2E86]">LatestProducts</span>
+            <span className="text-[#FB2E86]">AllProducts</span>
           </p>
         </div>
       </div>

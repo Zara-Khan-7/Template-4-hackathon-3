@@ -10,6 +10,7 @@ import {
   XMarkIcon 
 } from "@heroicons/react/24/outline";
 import TopBar from "./TopBar";
+import { IoLogInOutline } from "react-icons/io5";
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -58,51 +59,54 @@ function Header() {
               </li>
 
               <li className="relative">
-                <button
-                  className="hover:text-[#FB2E86] transition-colors"
-                  onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)} // Toggle the Pages menu
-                >
-                  Pages
-                </button>
-                {isPagesDropdownOpen && (
-                  <ul className="absolute top-full mt-2 bg-white shadow-md rounded-md text-black text-sm">
-                      <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/productlist">All Products</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/featuredproducts">Featured Products</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/latestproducts">Latest Products</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/trendingproducts">Trending Products</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/cart">Cart</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/checkout">Billing Details</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/ordercompleted">Order Completed</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/about">About Us</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/contact-us">Contact Us</Link>
-                    </li>
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/account">My Account</Link>
-                    </li>
-                   
-                    <li className="px-4 py-2 hover:bg-gray-100">
-                      <Link href="/faq">FAQ</Link>
-                    </li>
-                  </ul>
-                )}
-              </li>
+  <button
+    className="hover:text-[#FB2E86] transition-colors"
+    onClick={() => setIsPagesDropdownOpen(!isPagesDropdownOpen)} // Toggle the Pages menu
+  >
+    Pages
+  </button>
+  {isPagesDropdownOpen && (
+    <ul
+      className="absolute top-full left-0 mt-2 bg-white shadow-lg rounded-md text-black text-sm z-50"
+      style={{ minWidth: '200px' }} // Ensure consistent width for dropdown
+    >
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/productlist">All Products</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/featuredproducts">Featured Products</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/latestproducts">Latest Products</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/trendingproducts">Trending Products</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/cart">Cart</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/checkout">Billing Details</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/ordercompleted">Order Completed</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/about">About Us</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/contact-us">Contact Us</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/account">My Account</Link>
+      </li>
+      <li className="px-4 py-2 hover:bg-gray-100">
+        <Link href="/faq">FAQ</Link>
+      </li>
+    </ul>
+  )}
+</li>
+
 
 
 
@@ -134,6 +138,12 @@ function Header() {
               <HeartIcon className="w-5 h-5" />
               <span>Wishlist</span>
             </Link>
+             {/* Login */}
+          <Link href="/account"><div className="hover:text-[#FB2E86] transition-colors flex items-center gap-1">
+          <span>Login</span>
+            <IoLogInOutline className="w-5 h-5" />
+          </div>
+          </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -161,7 +171,7 @@ function Header() {
             Pages
           </button>
           {isPagesDropdownOpen && (
-            <ul className="w-full text-center bg-white shadow-md rounded-md text-black text-sm">
+            <ul className="w-full text-center bg-white shadow-md rounded-md text-black text-sm overflow-visible">
               <li className="px-4 py-2 hover:bg-gray-100">
                 <Link href="/productlist">All Products</Link>
               </li>
@@ -253,6 +263,12 @@ function Header() {
               <HeartIcon className="w-5 h-5" />
               <span>Wishlist</span>
             </Link>
+             {/* Login */}
+          <Link href="/account"><div className="flex items-center space-x-1 cursor-pointer">
+          <span className=" text-[12px] sm:text-[15px]">Login</span>
+            <IoLogInOutline className="text-lg hidden sm:block" />
+          </div>
+          </Link>
           </div>
         </div>
       )}

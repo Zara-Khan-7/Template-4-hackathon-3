@@ -106,9 +106,12 @@ function FeaturedProducts() {
   const displayedProducts = showAll ? products : products.slice(1, 5);
 
   return (
+  <>
+  <Header/>
+
     <div className="w-full bg-white py-20">
       <ToastContainer autoClose={1000} />
-      <Header/>
+      
 
       <h2 className="text-black text-4xl text-center mb-16 font-bold mt-4">Featured Products</h2>
 
@@ -193,7 +196,7 @@ function FeaturedProducts() {
       )}
       <Footer/>
     </div>
-    
+    </>
   );
 }
 

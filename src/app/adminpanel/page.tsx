@@ -1,52 +1,46 @@
 "use client";
-
-import { useSession, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AdminPanel = () => {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const [orders, setOrders] = useState<any[]>([]);
-
-  if (status === "loading") return <p>Loading...</p>;
-  if (!session) {
-    router.push("/adminlogin");
-    return null;
-  }
-  if (session.user?.email !== "admin@example.com") {
-    return <p>You are not authorized to view this page.</p>;
-  }
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await fetch("/api/order");
-        if (!response.ok) throw new Error("Failed to fetch orders");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch orders");
+        }
+
         const data = await response.json();
+        console.log("Fetched Orders:", data); // Debugging log
         setOrders(data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
     };
+
     fetchOrders();
   }, []);
 
   return (
     <div>
-      <h1>Welcome, {session.user?.name}</h1>
-      <button onClick={() => signOut()} className="bg-red-500 text-white py-2 px-4">Logout</button>
-      
-      <h2 className="mt-6 text-xl font-semibold">Orders</h2>
-      <ul>
-        {orders.map((order) => (
-          <li key={order._id} className="border-b p-4">
-            <p><strong>Customer:</strong> {order.customer.fullName}</p>
-            <p><strong>Email:</strong> {order.customer.email}</p>
-            <p><strong>Status:</strong> {order.status}</p>
-          </li>
-        ))}
-      </ul>
+      <h1 className="text-2xl font-bold">Admin Panel - Orders</h1>
+      {orders.length === 0 ? (
+        <p>No orders found.</p>
+      ) : (
+        <ul>
+          {orders.map((order: any) => (
+            <li key={order._id}>
+              <p><strong>Customer:</strong> {order.customer.fullName}</p>
+              <p><strong>Email:</strong> {order.customer.email}</p>
+              <p><strong>Total Items:</strong> {order.items.length}</p>
+              <hr />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
